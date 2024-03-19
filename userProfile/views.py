@@ -148,3 +148,24 @@ def BookSlot(request, id):
 
     else:
         return JsonResponse({"Error":"You need to login first"})
+    
+def search_properties(request):
+    if request.method == 'GET':
+        location = request.GET.get('location')
+        property_type = request.GET.get('property_type')
+        price_range = request.GET.get('price_range')
+        min_size = request.GET.get('min_size')
+
+        items = AuctionItem.objects.all()
+        if location:
+            items = items.filter(address__icontains=location)
+        if property_type:
+            items = items.filter(house_type=property_type)
+        if price_range:
+            items = items.filter(start_price__lte=price_range)
+        if min_size:
+            items = items.filter(house_size__gte=min_size)
+
+        return render(request, 'userProfile/search_results.html', {'items': items})
+
+    return render(request, 'home.html')

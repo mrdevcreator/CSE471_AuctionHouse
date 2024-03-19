@@ -14,4 +14,5 @@ urlpatterns=[
     path('update-slot/<str:id>',views.UpdateSlot,name='updateSlot'),
     path('delete-slot/<str:id>',views.DeleteSlot, name='deleteSlot'),
     path('book-slot/<str:id>',views.BookSlot,name='bookSlot'),
+    path('search/', views.search_properties, name='search_properties'),
     ]
