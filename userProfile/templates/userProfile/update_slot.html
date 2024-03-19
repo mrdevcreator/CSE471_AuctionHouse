@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slot-container {
+            max-width: 500px;
+            width: 100%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .slot-container  form {
+            width: 100%;
+        }
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+
+        input[type="submit"] {
+            margin-left: 50px;
+            width: 80%;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <div class="slot-container">
+        <h2>Update New Slot</h2>
+
+        <form action="" method="POST">
+        {% csrf_token %}
+        {{form.day.label}}
+        {{form.day}}
+
+        {{form.start_time.label}}
+        {{form.start_time}}
+
+        {{form.end_time.label}}
+        {{form.end_time}}
+        
+        {{form.message.label}}
+        {{form.message}}
+
+        {{form.meet_link.label}}
+        {{form.meet_link}}
+
+        {{form.max_user.label}}
+        {{form.max_user}}
+
+        <input type="submit" value="Update" />
+        </form>
+    </div>
+
+
+
+
+
+{% endblock %}

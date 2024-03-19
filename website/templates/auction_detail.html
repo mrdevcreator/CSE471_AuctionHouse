@@ -1,0 +1,125 @@
+<!-- auction_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <style>
+
+    .container-col1{
+      background-color: rgba(255,255,255,0.7);
+      width: 50%;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .container-col1 > img {
+      width: 100%;
+      height: 100%;
+      
+      border-radius: 10px;
+    } 
+
+    .similar-bid-history-container {
+      margin: 50px 0;
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      
+    }
+    .similar-bid-history-container a {
+      text-decoration: none;
+      margin: 10px 0;
+      width: 100%;
+      
+    }
+    .similar-bid-history-container > h3 {
+      color: rgb(68, 0, 255);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      word-spacing: 7px;
+      font-weight: 600;
+    }
+    .similar-bid-history-card {
+      display: flex;
+      background-color: azure;
+      padding: 20px 10px;
+      border-radius: 4px;
+      transition: 0.2s background-color ease-in-out;
+    }
+    .similar-bid-history-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .similar-bid-history-card:hover {
+      background-color: rgb(228, 228, 228);
+    }
+  
+    .similar-bid-history-card p {
+      color: black;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+    }
+    .similar-bid-history-card .card-col1 {
+      width: 30%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: azure;
+      
+    }
+    .similar-bid-history-card .card-col2 {
+      width: 70%;
+      padding: 0 20px ;
+    }
+  </style>
+  
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Display Auction Image -->
+      <div class="container-col1">
+        <img src="{{ auction_detail.image.url }}" alt="{{ auction_detail.title }}" class="img-fluid">
+      </div>
+      
+      <!-- Auction Details -->
+      <div class="col-md-6">
+        <div style="background-color: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 10px;">
+          <h2 class="mb-4 text-black">{{ auction_detail.title }} Details</h2>
+          
+            <p style="color: black;"><strong>Description:</strong> {{ auction_detail.description }}</p>
+            <p style="color: black;"><strong>Start Time:</strong> {{ auction_detail.start_time }}</p>
+            <p style="color: black;"><strong>End Time:</strong> {{ auction_detail.end_time }}</p>
+            <p style="color: black;"><strong>Current Bid:</strong> {{ auction_detail.current_bid }}</p>
+            <p style="color: black;"><strong>Address:</strong> {{ auction_detail.address }}</p>
+
+          <!-- Add buttons for bidding or other actions as needed -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Similar bid history -->
+    <div class="similar-bid-history-container">
+      <h3>View Similar bid history</h3>
+      
+
+      {% for auction in similar_auctions %}
+
+      <a href="{% url 'website:auction_detail' auction.id %}">
+        <div class="similar-bid-history-card">
+          <div class="card-col1"><img src="{{ auction.image.url }}" alt="error"></div>
+          <div class="card-col2">
+            <h4>{{ auction.title }}</h4>
+            <p>{{ auction.description }}</p></div>
+            <p>Current Bid: {{ auction.current_bid }}</p>
+        </div>
+      </a>
+
+      {% endfor %}
+
+      
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <h1>Welcome to Auction House</h1>
+      <h6>Where Homes Meet Opportunities</h6>
+      <div class="mt-4">
+        {%if user.is_authenticated%} {%if user.buyer_seller%}
+        <a href="{% url 'account_logout'%}" class="btn btn-primary">Logout</a>
+        {%else%}
+        <a href="{%url 'userProfile:register'%}" class="btn btn-primary"
+          >Register
+        </a>
+        <a href="{% url 'account_logout'%}" class="btn btn-primary">Logout</a>
+        {%endif%} {%else%}
+        <a href="{%url 'account_signup'%}" class="btn btn-primary">Sign Up</a>
+        <a href="{%url 'account_login'%}" class="btn btn-primary">Login</a>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
