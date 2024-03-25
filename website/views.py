@@ -51,7 +51,7 @@ def auction_detail(request, item_id):
 
     if (len(similar_auctions) >= 5):
         similar_auctions = similar_auctions[:5]
-    
+
 
     return render(request, 'auction_detail.html', {'auction_detail': auction_detail,'similar_auctions': similar_auctions})
 
@@ -109,6 +109,30 @@ def create_auction(request):
 
 def bidding(request, item_id):
     auction = get_object_or_404(AuctionItem, id=item_id)
+
+    s_a = AuctionItem.objects.filter(
+        Q(address__icontains=auction.address) and
+        Q(house_type=auction.house_type) and
+        Q(end_time__gt=timezone.now()) and 
+        Q(current_bid__gt=0)
+    )
+
+    avg_per_sq_feet_price = 0
+    avg_per_floor_price = 0
+    count = 0
+    for auctions in s_a:
+        avg_per_sq_feet_price += (auctions.current_bid / auctions.house_size)
+        avg_per_floor_price += (auctions.current_bid / auctions.floor_count)
+        count += 1
+    
+    avg_per_floor_price = avg_per_floor_price / count 
+    avg_per_sq_feet_price = avg_per_sq_feet_price / count
+
+    predicted_value = (auction.house_size * avg_per_sq_feet_price + auction.floor_count * avg_per_floor_price) / 2
+
+
+    predicted_value = int(predicted_value)
+    
     if request.method=="POST":
         form=BiddingForm(request.POST)
         if form.is_valid():
@@ -119,10 +143,10 @@ def bidding(request, item_id):
                 return redirect('website:live_auction_items')
             else:
                 message = 'Your bid should be greater than the current bid and starting price.'
-                return render(request, 'bidding.html', {'auction': auction, 'form': form, 'message': message})
+                return render(request, 'bidding.html', {'auction': auction, 'form': form, 'message': message,'predicted_value':predicted_value})
     else:
         form=BiddingForm
-    return render(request,'bidding.html',{'auction': auction,'form':form})
+    return render(request,'bidding.html',{'auction': auction,'form':form,'predicted_value':predicted_value})
         
 
 def seller_rating(request, item_id):
@@ -143,8 +167,6 @@ def seller_rating(request, item_id):
 def seller_profile(request, seller_id):
     seller = get_object_or_404(Buyer_Seller, user_id=seller_id)
     return render(request, 'seller_profile.html', {'seller': seller})
-
-
 
 
 def Advisor_Page(request):

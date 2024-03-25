@@ -22,8 +22,10 @@
             Start Time: {{ auction.start_time }}<br>
             End Time: {{ auction.end_time }}<br>
             Starting Price: {{ auction.start_price }}<br>
-            Current Bid: {{ auction.current_bid }}
+            Current Bid: {{ auction.current_bid }} <br>
           </p>
+          <p id="prediction-message"><a href="#" id="predict-link">Click here to get a prediction from AI about the price of the house.</a></p>
+          <p id="prediction-value" style="display: none;"><strong>Approx. Value:</strong> <span id="predicted-value"></span> Tk</p>
           <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
@@ -57,5 +59,18 @@
         document.getElementById("countdown").innerHTML = "Auction has Ended!";
       }
     }, 1000);
+    // JavaScript for prediction value
+    document.getElementById("predict-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      document.getElementById("prediction-message").innerHTML = "Predicting...";
+      setTimeout(function() {
+        var predictedValue = {{ predicted_value|default:"'N/A'" }};
+        document.getElementById("predicted-value").textContent = predictedValue;
+        document.getElementById("prediction-message").style.display = "none";
+        document.getElementById("prediction-value").style.display = "block";
+      }, 2000);
+    });
+
   </script>
+
 {% endblock %}
