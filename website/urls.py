@@ -17,12 +17,16 @@ urlpatterns = [
     path('bidding/<int:item_id>/',views.bidding,name="bidding"),
     path('seller_rating/<int:item_id>/', views.seller_rating, name='seller_rating'),
     path('seller/<int:seller_id>/', views.seller_profile, name='seller_profile'),
-
-
-    path('advisors/',views.Advisor_Page,name='advisors'),
-    path('advisors/<str:id>',views.Advisor_Inside,name='advisorInside')
-
     # path('rating-already-submitted/', views.rating_already_submitted, name='rating_already_submitted'),
+    path('add_to_wishlist/<int:item_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('show_wishlist/', views.show_wishlist, name='show_wishlist'),
+    path('winner_me/', views.winner_me, name='winner_me'),
+    path('meeting/<int:item_id>/', views.meeting, name='meeting'),
+    path('advisors/',views.Advisor_Page,name='advisors'),
+    path('advisors/<str:id>',views.Advisor_Inside,name='advisorInside'),
+    path('refund/', views.refund_request, name='refund'),
+    path('generate-bill/', views.generate_bill, name='generate_bill')
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,14 +2,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Search form -->
-    <div class="search-container text-center mb-4">
-        <form action="{% url 'website:search_live_auctions' %}" method="GET" class="form-inline">
-            <input type="text" class="form-control" placeholder="Search for auctions..." name="query" required>
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-    </div>
+<div class="flex justify-between items-start mt-6 mb-4 ">
+    <form action="{% url 'website:search_live_auctions' %}" method="GET" class="flex flex-row gap-2">
+        <input type="text" placeholder="Search for auctions..." name="query" required class="border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500 w-60">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-0 rounded-r-md -ml-2 w-20">Search</button>
+    </form>
+</div>
 
     <!-- Display Live Auctions -->
     <div class="card-deck">
@@ -41,7 +39,7 @@
                                 </p>
                                 <p class="card-text font-weight-bold text-primary mb-3">
                                     Current Bid: {{ auction.current_bid }}</p>
-                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">View Details</a>
+                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">Details</a>
                                 {%if user.is_authenticated%}
                                 {%if user.buyer_seller%}
                                 {% if user != auction.created_by %}

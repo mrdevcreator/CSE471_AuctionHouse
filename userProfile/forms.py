@@ -1,14 +1,12 @@
 
 from django import forms
 from . models import *
-
 from website.models import *
 
 class RegitrationForm(forms.ModelForm):
     class Meta:
         model= Buyer_Seller
         fields=['phone','address']
-
 
 class CreateSlotForm(forms.ModelForm):
     class Meta:

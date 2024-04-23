@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">
+                <h2>Wishlist</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for obj in wishlist %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            {% if obj.wish.image %}
+                            <img src="{{obj.wish.image.url }}" alt="{{obj.wish.title }} Image" class="card-img-top">
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="card-title">{{obj.wish.title }}</h3>
+                                <p class="card-text text-dark mb-0">{{obj.wish.description|truncatewords:15 }}</p>
+                                <p class="card-text mb-3">
+                                    <small class="text-muted">
+                                        Start Time: <span class="start-time">{{obj.wish.start_time }}</span><br>
+                                        End Time: {{obj.wish.end_time }}
+                                    </small>
+                                </p>
+                                <p class="card-text font-weight-bold text-primary mb-3">
+                                    Start Price: {{obj.wish.start_price}}<br>
+                                </p>
+                                <p class="card-text font-weight-bold text-primary mb-3">
+                                    Current Bid: {{obj.wish.current_bid }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

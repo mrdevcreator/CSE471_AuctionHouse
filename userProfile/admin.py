@@ -6,3 +6,4 @@ from .models import *
 
 
 admin.site.register(Buyer_Seller)
+admin.site.register(Rating)

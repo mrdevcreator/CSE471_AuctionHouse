@@ -3,15 +3,13 @@
 
 {% block content %}
 <div class="container mt-4">
-    <!-- Search form -->
-    <div class="search-container text-center mb-4">
-        <form action="{% url 'website:search_upcoming_auctions' %}" method="GET" class="form-inline">
-            <input type="text" class="form-control" placeholder="Search for auctions..." name="query" required>
-            <button type="submit" class="btn btn-primary">Search</button>
+    <div class="flex justify-between items-start mt-6 mb-4 ">
+        <form action="{% url 'website:search_live_auctions' %}" method="GET" class="flex flex-row gap-2">
+            <input type="text" placeholder="Search for auctions..." name="query" required class="border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500 w-60">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-0 rounded-r-md -ml-2 w-20">Search</button>
         </form>
     </div>
 
-    <!-- Display Past Auctions -->
     <div class="card-deck">
         <!-- Past Auctions -->
         <div class="card">
@@ -28,18 +26,25 @@
                             {% endif %}
                             <div class="card-body">
                                 <h3 class="card-title">{{ auction.title }}</h3>
-                                <h10 class="card-text text-dark">Seller: {{ auction.created_by.username }}</h10><br>
+                                <p class="card-text text-dark">Seller: <a href="{% url 'website:seller_profile' seller_id=auction.created_by.buyer_seller.user_id %}">{{ auction.created_by.username }}</a></p>
                                 <p class="card-text text-dark mb-0">{{ auction.description|truncatewords:15 }}</p>
+                                {% if auction.winner %}
                                 <p class="card-text font-weight-bold text-primary mb-0">
-                                    Current Bid: {{ auction.current_bid }}
+                                    Winner: {{ auction.winner.username }}<br>
+                                    Winning Amount: {{ auction.current_bid }}
                                 </p>
+                                {% else %}
+                                <p class="card-text font-weight-bold text-primary mb-0">
+                                    No Winner
+                                </p>
+                                {% endif %}
                                 <p class="card-text mb-3">
                                     <small class="text-muted">
                                         Start Time: <span class="start-time">{{ auction.start_time }}</span><br>
                                         End Time: {{ auction.end_time }}
                                     </small>
                                 </p>
-                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">View Details</a>
+                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">Details</a>
                             </div>
                         </div>
                     </div>
@@ -48,5 +53,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>    
 {% endblock %}

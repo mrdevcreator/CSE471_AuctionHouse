@@ -1,21 +1,80 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2 class="text-center" style="color: white; font-weight: bold;">Rate This Seller</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="rating">Rating:</label>
-                        <input type="number" class="form-control" name="rating" min="1" max="5" required>
+<div class="container mt-4" style="background-color: #f0f0f0; padding: 20px;">
+    <h2 class="text-center" style="color: #333; font-weight: bold;">Rate This Seller</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group text-center"> <!-- Center the form -->
+                    <label for="rating" style="color: #333; font-size: 24px;">Rating:</label>
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rating" value="5" required>
+                        <label for="star5" title="5 star">5 star</label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" title="4 stars">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" title="3 stars">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" title="2 stars">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" title="1 stars">1 stars</label>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">Submit Rating</button>
-                    </div>
-                </form>
-            </div>
+                    <br>
+                    <small class="form-text text-muted" style="color: #333; font-size: 16px;">Please rate the seller from 1 to 5 stars.</small>
+                </div>
+                <button type="submit" class="btn btn-primary d-block mx-auto">Submit Rating</button>
+            </form>
         </div>
     </div>
+</div>
+<style>
+    /* Star rating styles */
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .rate {
+        display: flex;
+        justify-content: center; /* Center the stars */
+        height: 46px;
+        padding: 0 10px;
+    }
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+    }
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+    /* Reverses the order of the stars */
+    .rate {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+    }
+</style>
 {% endblock %}

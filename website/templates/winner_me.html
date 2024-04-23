@@ -4,23 +4,23 @@
 {% block content %}
 <div class="container mt-4">
     <!-- Search form -->
-    <div class="flex justify-between items-start mt-6 mb-4 ">
-        <form action="{% url 'website:search_live_auctions' %}" method="GET" class="flex flex-row gap-2">
-            <input type="text" placeholder="Search for auctions..." name="query" required class="border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500 w-60">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-0 rounded-r-md -ml-2 w-20">Search</button>
+    <div class="search-container text-center mb-4">
+        <form action="{% url 'website:search_upcoming_auctions' %}" method="GET" class="form-inline">
+            <input type="text" class="form-control" placeholder="Search for auctions..." name="query" required>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
 
-    <!-- Display Upcoming Auctions -->
+    <!-- Display Past Auctions -->
     <div class="card-deck">
-        <!-- Upcoming Auctions -->
+        <!-- Past Auctions -->
         <div class="card">
             <div class="card-header">
-                <h2>Upcoming Auctions</h2>
+                <h2>Winning Bids</h2>
             </div>
             <div class="card-body">
                 <div class="row">
-                    {% for auction in upcoming_auctions %}
+                    {% for auction in past_auctions %}
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             {% if auction.image %}
@@ -31,7 +31,7 @@
                                 <h10 class="card-text text-dark">Seller: {{ auction.created_by.username }}</h10><br>
                                 <p class="card-text text-dark mb-0">{{ auction.description|truncatewords:15 }}</p>
                                 <p class="card-text font-weight-bold text-primary mb-0">
-                                    Current Bid: {{ auction.current_bid }}
+                                    Current Bid: {{ auction.current_bid }}<br>
                                 </p>
                                 <p class="card-text mb-3">
                                     <small class="text-muted">
@@ -39,15 +39,9 @@
                                         End Time: {{ auction.end_time }}
                                     </small>
                                 </p>
-                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">Details</a>
-                                {%if user.is_authenticated%}
-                                {%if user.buyer_seller%}
-                                {% if user != auction.created_by %}
-                                <a href="{% url 'website:add_to_wishlist' auction.id %}" class="btn btn-sm btn-primary">Add to Wishlist</a>
-                                {%endif%}
-                                {%endif%}
-                                {%endif%}
-                                
+                                <a href="{% url 'website:auction_detail' auction.id %}" class="btn btn-sm btn-primary">View Details</a>
+                                <a href="{% url 'website:meeting' auction.id %}" class="btn btn-sm btn-primary">Schedule meeting</a>
+                                <a href="{% url 'website:seller_rating' auction.id %}" class="btn btn-sm btn-primary">Rate Seller</a>
                             </div>
                         </div>
                     </div>

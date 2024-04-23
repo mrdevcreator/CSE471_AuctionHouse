@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 <div class="container mt-5">
@@ -8,7 +9,7 @@
       <h6 class="animate__animated animate__fadeIn animate__delay-2s">Where Homes Meet Opportunities</h6>
       <div class="flex justify-center animate__animated animate__fadeIn animate__delay-3s">
         <div class="max-w-lg border border-gray-300 p-8 rounded-lg shadow-lg">
-          <h2 class="text-3xl text-indigo-500 font-bold mb-4 hover:text-indigo-700">Find Your Next Property at Auction</h2>
+          <h2 class="text-3xl text-indigo-700 font-bold mb-4 hover:text-indigo-500">Find Your Next Property at Auction</h2>
           <form action="{% url 'userProfile:search_properties' %}" method="GET" class="items-center">
             <div class="mb-4 text-left">
               <label for="location" class="block text-[10px] font-medium text-black/80">Location:</label>

@@ -2,10 +2,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+        
+  input,
+  select,
+  textarea {
+      color: black;
+  }
+  .container-col1{
+    background-color: rgba(255,255,255,0.7);
+    width: 50%;
+    height: 60%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .container-col1 > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+
+</style>
   <div class="container mt-4">
     <div class="row">
       <!-- Display Auction Image -->
-      <div class="col-md-6">
+      <div class="container-col1">
         <img src="{{ auction.image.url }}" alt="{{ auction.title }}" class="img-fluid">
       </div>
 

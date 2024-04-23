@@ -2,6 +2,19 @@
 {% load i18n %}
 {% load allauth account socialaccount %}
 {% block content %}
+<style>
+    input,
+    select,
+    textarea {
+        width: 90%;
+        padding: 6px;
+        margin: 4px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: black;
+    }
+</style>
 <br><br><br>
    
     <div class="container d-flex justify-content-center align-items-center">
@@ -33,12 +46,5 @@
         </div>
     </div>
    
-<style>
-    /* Style to change input text color */
-    .card input[type="text"],
-    .card input[type="email"],
-    .card input[type="password"] {
-        color: black; /* Change this to your desired text color */
-    }
-</style>   
+    
 {% endblock content %}

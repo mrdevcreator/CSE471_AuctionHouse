@@ -1,15 +1,17 @@
 body {
   font-family: Arial, sans-serif;
-  background-image: url("1.jpeg");
+  background-image: url("bg5.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: 250vh;
 }
+
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
 }
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -43,7 +45,13 @@ nav .navbar-brand {
   font-display: flex;
   font-size: 40px;
   margin-bottom: 20px;
-  color: #29294d;
+  color: #272741;
+}
+
+.container h2 {
+  font-weight: 500;
+  font-display: flex;
+  font-size: 30px;
 }
 
 .container h6 {
@@ -55,8 +63,7 @@ nav .navbar-brand {
 }
 
 .container p {
-  color: #ffffff;
-
+  color: white;
   margin-bottom: 50px;
 }
 
@@ -123,4 +130,36 @@ input[type="submit"]:hover {
 form button {
   margin-left: calc(50% - 100px);
   width: 200px;
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-container .form-inline {
+  display: flex;
+  flex-grow: 1;
+}
+
+.search-container .form-inline .form-control {
+  flex: 1; 
+  width: 100%;
+  height: 100%; 
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+
+
+.input-box input,.form-control input {
+  width: 100%; 
+  height: 100%; 
+  border: none;
+  outline: none;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 10px;
 }
